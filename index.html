@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GrooveFour — live groove pocket desk</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div id="app">
+  <header>
+    <p class="kicker">WorkinWithAI · live chairs</p>
+    <h1>GrooveFour</h1>
+    <p class="tag">Four-bar live groove pocket desk. Sample packs feel canned. Session players write a repeating 4-bar pocket on <em>your</em> key and BPM — drums, upright, piano, nylon — that drops on the grid.</p>
+  </header>
+  <div id="status">Tap to start audio</div>
+  <section class="controls">
+    <label>BPM <input type="number" id="bpm" min="60" max="180" value="98"></label>
+    <label>Key <select id="key"><option>A minor</option><option>C major</option><option>D minor</option><option>E major</option><option>G major</option></select></label>
+    <label>Recipe <select id="recipe"></select></label>
+  </section>
+  <section class="chairs">
+    <label><input type="checkbox" id="mute-kit" checked> Kit</label>
+    <label><input type="checkbox" id="mute-bass" checked> Upright</label>
+    <label><input type="checkbox" id="mute-piano" checked> Piano</label>
+    <label><input type="checkbox" id="mute-nylon" checked> Nylon</label>
+  </section>
+  <div class="playhead"><div id="playhead-bar"></div></div>
+  <section class="actions">
+    <button id="play">Play</button>
+    <button id="stop">Stop</button>
+    <button id="export-wav">Export WAV</button>
+    <button id="export-mid">Export MIDI</button>
+  </section>
+  <p class="note">iOS silent switch mutes Web Audio. Exports are 48 kHz 24-bit stereo, on-grid, loop-seamless. Samples pinned to PreEight@d58301e.</p>
+</div>
+<script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,13 @@
+body { font-family: system-ui, sans-serif; background: #111; color: #eee; margin: 0; padding: 1rem; }
+#app { max-width: 720px; margin: 0 auto; }
+.kicker { font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: #aaa; }
+h1 { margin: 0.2rem 0; }
+.tag { color: #ccc; }
+#status { background: #222; padding: 0.5rem; border-radius: 4px; margin: 1rem 0; }
+.controls, .chairs, .actions { display: flex; gap: 1rem; flex-wrap: wrap; margin: 1rem 0; }
+label { display: flex; align-items: center; gap: 0.3rem; }
+input, select, button { background: #222; color: #eee; border: 1px solid #444; padding: 0.4rem; border-radius: 4px; }
+button { cursor: pointer; }
+.playhead { height: 8px; background: #333; margin: 1rem 0; position: relative; }
+#playhead-bar { height: 100%; background: #6c6; width: 0%; transition: width 0.05s linear; }
+.note { font-size: 0.8rem; color: #888; }
