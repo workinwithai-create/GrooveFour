@@ -84,7 +84,7 @@ async function initAudio() {
     }
   }
   if (missing.length) {
-    document.getElementById("status").textContent = `Missing instruments: ${missing.join(", ")} — cannot play`;
+    document.getElementById("status").textContent = `Missing instruments: ${missing.join(", ")} \u2014 cannot play`;
     return false;
   }
   document.getElementById("status").textContent = "Ready. Tap play.";
@@ -276,16 +276,17 @@ async function exportWAV() {
   a.href = URL.createObjectURL(blob);
   a.download = `groovefour-recipe-${state.bpm}bpm-${state.key.replace(/\s+/g,"")}.wav`;
   a.click();
-  document.getElementById("status").textContent = "WAV exported (seamless, on-grid)";
+  document.getElementById("status").textContent = "WAV exported (seamless, on-grid, 24-bit)";
 }
 
 function audioBufferToWav(buffer, exactLength) {
   const numChannels = 2;
   const sampleRate = buffer.sampleRate;
   const format = 1;
-  const bitDepth = 16;
+  const bitDepth = 24;
   const samples = exactLength || buffer.length;
-  const dataLength = samples * numChannels * (bitDepth / 8);
+  const bytesPerSample = bitDepth / 8;
+  const dataLength = samples * numChannels * bytesPerSample;
   const bufferLength = 44 + dataLength;
   const arrayBuffer = new ArrayBuffer(bufferLength);
   const view = new DataView(arrayBuffer);
@@ -300,8 +301,8 @@ function audioBufferToWav(buffer, exactLength) {
   view.setUint16(20, format, true);
   view.setUint16(22, numChannels, true);
   view.setUint32(24, sampleRate, true);
-  view.setUint32(28, sampleRate * numChannels * (bitDepth / 8), true);
-  view.setUint16(32, numChannels * (bitDepth / 8), true);
+  view.setUint32(28, sampleRate * numChannels * bytesPerSample, true);
+  view.setUint16(32, numChannels * bytesPerSample, true);
   view.setUint16(34, bitDepth, true);
   writeString(36, "data");
   view.setUint32(40, dataLength, true);
@@ -309,8 +310,12 @@ function audioBufferToWav(buffer, exactLength) {
   for (let i = 0; i < samples; i++) {
     for (let ch = 0; ch < numChannels; ch++) {
       const sample = Math.max(-1, Math.min(1, buffer.getChannelData(ch)[i] || 0));
-      view.setInt16(offset, sample < 0 ? sample * 0x8000 : sample * 0x7FFF, true);
-      offset += 2;
+      let intSample = Math.round(sample * 8388607);
+      if (intSample < 0) intSample += 16777216;
+      view.setUint8(offset, intSample & 0xFF);
+      view.setUint8(offset + 1, (intSample >> 8) & 0xFF);
+      view.setUint8(offset + 2, (intSample >> 16) & 0xFF);
+      offset += 3;
     }
   }
   return arrayBuffer;

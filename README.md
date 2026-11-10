@@ -8,7 +8,7 @@ Distinct from TagFour (last-line end), LiftTwo (pre-hook lift), PreEight, AfterH
 
 ## Pricing
 
-One-time **$19** on Gumroad (or Lemon Squeezy). This is a focused desk, not a subscription. **License gate not yet connected** — exports are open for now. Mirror free tier with license gate or mark free. Best place: Gumroad next to other indie music tools + pinned X demo.
+**Free** for now. (License gate for $19 not yet connected; exports open. Will add Gumroad/Lemon Squeezy or WorkinWithAI entitlement when ready. Mirror free tier.)
 
 ## Stack
 
@@ -18,8 +18,8 @@ Deploy on Vercel team `release-forge` (https://groovefour.vercel.app).
 
 ## Acceptance notes
 
-Engine follows WorkinWithAI rules: lookahead scheduler on AudioContext clock, live state, OfflineAudioContext exports (length exact, first sample at 0, tail folded for seamless loop, peak ≤ -1 dBFS), no @main, no Math.random in export path. User BPM/key persist. Missing samples named. MIDI is multi-track SMF with tempo and time signature.
+Engine follows WorkinWithAI rules: lookahead scheduler on AudioContext clock, live state, OfflineAudioContext exports (length exact, first sample at 0, tail folded for seamless loop, peak ≤ -1 dBFS), no @main, no Math.random in export path. User BPM/key persist. Missing samples named. MIDI is multi-track SMF with tempo and time signature. WAV is 48 kHz 24-bit stereo.
+
+**Milestone 2026-11-10**: Fixed WAV to true 24-bit (previously 16-bit despite claim). Marked free until license gate. Core exports production-ready. Not yet fully shipped (missing real checkout/license if priced later, full mobile onboarding verification in production).
 
 Demo video: short screen capture of play + export.
-
-**Milestone 2026-11-09**: Core exports made production-ready. Not yet shipped (missing real checkout/license delivery, full mobile onboarding verification, 24-bit WAV).
